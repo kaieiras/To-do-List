@@ -1,8 +1,15 @@
 import { Trash2, RefreshCcw, Check, ChevronRight } from "lucide-react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 export default function Tasks({tasks, onTaskClick, OnDeleteTaskClick}) {
-  console.log(tasks); // Verifique a estrutura de tasks no console
+  const navigate = useNavigate(); // Verifique a estrutura de tasks no console
+  
+  function onSeeDetailsClick(task) {
+    navigate(`/task?title=${task.title}&description=${task.description}`)
+  }
+  
+  
   return (
     <div className="bg-[#2e2e2e] rounded-md shadow-md">
       <ul className='space-y-4 p-3 rounded-md shadow font-medium'>
@@ -13,7 +20,9 @@ export default function Tasks({tasks, onTaskClick, OnDeleteTaskClick}) {
                 {task.title}
             </button>
 
-            <button className="text-white bg-[#202020] rounded-md p-2">
+            <button 
+            onClick={() => onSeeDetailsClick(task)}
+            className="text-white bg-[#202020] rounded-md p-2">
               <ChevronRight />
             </button>
             <button 
