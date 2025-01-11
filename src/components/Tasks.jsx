@@ -9,31 +9,23 @@ export default function Tasks({tasks, onTaskClick, OnDeleteTaskClick}) {
         {tasks.map((task) => (
           <li key={task.id} className="flex gap-2">
             <button 
-              className={`bg-[#202020] w-full text-white rounded-md shadow-md p-3 flex ${task.isCompleted && 'line-through'}`}>
+              className={`bg-[#202020] w-full  text-white rounded-md shadow-md p-3 ${task.isCompleted && 'line-through'}`}>
                 {task.title}
             </button>
 
-            <button>
-              <ChevronRight 
-               className="text-white bg-[#202020] rounded-md flex w-full h-full"/>
+            <button className="text-white bg-[#202020] rounded-md p-2">
+              <ChevronRight />
             </button>
-
-            <button>
-              {!task.isCompleted ? <Check 
-               onClick={() => onTaskClick(task.id)} 
-               className={`text-green-500 bg-[#202020] rounded-md h-full`}/> 
-               : 
-               <RefreshCcw 
-               onClick={() => onTaskClick(task.id)} 
-               className={`text-white bg-[#202020] rounded-md h-full`}
-              />}
+            <button 
+              className="text-green-500 bg-[#202020] rounded-md p-2"
+              onClick={() => onTaskClick(task.id)} 
+            >
+              {!task.isCompleted ? <Check /> : <RefreshCcw className="text-white"/>}
             </button>
             
-            <button>
-              <Trash2
-              onClick={() => OnDeleteTaskClick(task.id)} 
-              className="text-red-700 rounded-md bg-[#202020]	"/>
-              </button>
+            <button className="text-red-700 rounded-md bg-[#202020]	p-2">
+              <Trash2 onClick={() => OnDeleteTaskClick(task.id)}/>
+            </button>
           </li>
         ))}
       </ul>
