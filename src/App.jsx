@@ -1,56 +1,60 @@
-import Statistic from './components/estatisticas'
-// import Form from './components/form/Form';
-import Tarefas from './components/tarefas';
-import { ToastContainer } from 'react-toastify';
-import { useState } from 'react';
+import Statistic from './components/Statistic'
+import AddTask from './components/AddTask';
+import Tasks from './components/Tasks';
+import { toast, ToastContainer } from 'react-toastify';
+import { useState, useEffect } from 'react';
 
-// import { FaEdit, FaWindowClose } from "react-icons/fa";
-//import './index.css'
 import './output.css'
-//import './App.css'
 
 
 function App() {
-  const [tasks, setTasks] = useState([
-    {
-      id:1,
-      title: "Estudar matemática",
-      description:"Estudar matemática para vestibular",
-      iscompleted: false,
-      data:'',
-    },
-    {
-      id:2,
-      title: "Estudar Portugues",
-      description:"Estudar matemática para vestibular",
-      iscompleted: false,
-      data:'',
-    },
-    {
-      id:3,
-      title: "Estudar Ingles",
-      description:"Estudar matemática para vestibular",
-      iscompleted: false,
-      data:'',
-    },
-    {
-      id:4,
-      title: "Estudar Francês",
-      description:"Estudar matemática para vestibular",
-      iscompleted: false,
-      data:'',
-    }
-  ]);
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem("tasks")) || []
+);
 
+useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+}, [tasks])
+
+function onTaskClick(taskId){
+    const newTasks = tasks.map((task) => {
+      if(task.id === taskId){
+        return {...task, isCompleted: !task.isCompleted}
+      };
+      return task;
+    })
+    setTasks(newTasks);
+    toast.success('Tarefa concluida')
+}
+
+function OnDeleteTaskClick(taskId){
+   const newTasks = tasks.filter(task => task.id !== taskId)
+   setTasks(newTasks);
+   toast.error("Tarefa deletada com sucesso")
+}
+
+function OnAddTaskSubmit(title, description){
+  const newTask = {
+    id: tasks.length + 1,
+    title,
+    description,
+    isCompleted: false,
+    date: new Date().toString(),
+  };
+  setTasks([...tasks, newTask]);
+  toast.info("Tarefa criada com sucesso.")
+}
+  
   return (
     <>
-     <h1 className="text-white text-3xl m-5 ">Projeto Lista de tarefas</h1>
-     <div className='w-screen flex justify-center'>
-      <section className='flex gap-10 box-border'>
-        <Tarefas tasks={tasks}/>
-        <Statistic />
-        <ToastContainer />
+     <h1 className="text-white text-3xl m-5 text-center font-bold ">Projeto Lista de tarefas</h1>
+     <div className='w-screen flex gap-3 justify-center'>
+      <section className='flex flex-col w-2/5'>
+        <AddTask OnAddTaskSubmit={OnAddTaskSubmit}/>
+        <Tasks tasks={tasks} onTaskClick={onTaskClick} OnDeleteTaskClick={OnDeleteTaskClick}/>
       </section>
+      <Statistic />
+      <ToastContainer />
     </div>
     </>
   )
