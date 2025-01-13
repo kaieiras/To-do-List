@@ -11,28 +11,28 @@ export default function Tasks({tasks, onTaskClick, OnDeleteTaskClick}) {
   
   
   return (
-    <div className="bg-[#2e2e2e] rounded-md shadow-md">
+    <div className="bg-containerColor rounded-md shadow-md">
       <ul className='space-y-4 p-3 rounded-md shadow font-medium'>
         {tasks.map((task) => (
           <li key={task.id} className="flex gap-2">
             <button 
-              className={`bg-[#202020] w-full  text-white rounded-md shadow-md p-3 ${task.isCompleted && 'line-through'}`}>
+              className={`bg-inputColor w-full text-left rounded-md shadow-lg p-3 ${task.isCompleted && 'line-through'}`}>
                 {task.title}
             </button>
 
             <button 
             onClick={() => onSeeDetailsClick(task)}
-            className="text-white bg-[#202020] rounded-md p-2">
+            className=" bg-slate-100 rounded-md p-2">
               <ChevronRight />
             </button>
             <button 
-              className="text-green-500 bg-[#202020] rounded-md p-2"
+              className="text-green-500 bg-slate-100 rounded-md p-2"
               onClick={() => onTaskClick(task.id)} 
             >
-              {!task.isCompleted ? <Check /> : <RefreshCcw className="text-white"/>}
+              {!task.isCompleted ? <Check /> : <RefreshCcw className="text-black"/>}
             </button>
             
-            <button className="text-red-700 rounded-md bg-[#202020]	p-2">
+            <button className="text-red-700 rounded-md bg-slate-100	p-2">
               <Trash2 onClick={() => OnDeleteTaskClick(task.id)}/>
             </button>
           </li>
