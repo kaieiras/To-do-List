@@ -1,7 +1,6 @@
 import Statistic from './components/Statistic'
 import AddTask from './components/AddTask';
 import Tasks from './components/Tasks';
-import TaskDetails from './components/TaskDetails';
 import Nav from './components/nav';
 
 import { toast, ToastContainer } from 'react-toastify';
@@ -19,7 +18,7 @@ useEffect(() => {
     localStorage.setItem("tasks", JSON.stringify(tasks));
 }, [tasks])
 
-function onTaskClick(taskId){
+function onTaskClick(taskId, taskCompleted){
     const newTasks = tasks.map((task) => {
       if(task.id === taskId){
         return {...task, isCompleted: !task.isCompleted}
@@ -27,7 +26,10 @@ function onTaskClick(taskId){
       return task;
     })
     setTasks(newTasks);
-    toast.success('Tarefa concluida')
+
+    if(taskCompleted) return toast.info("Tarefa reiniciada.");
+
+    toast.success('Tarefa completada com sucesso!');
 }
 
 function OnDeleteTaskClick(taskId){
@@ -51,15 +53,18 @@ function OnAddTaskSubmit(title, description){
   return (
     <>
     <Nav />
-     <h1 className="text-white text-3xl m-5 text-center font-bold ">Projeto Lista de tarefas</h1>
-     <div className='bg-white w-11/12 h-[75vh] rounded-[30px] flex gap-3 justify-center m-auto p-6'>
-      <section className='flex flex-col w-2/5 gap-6'>
-        <AddTask OnAddTaskSubmit={OnAddTaskSubmit}/>
-        <Tasks tasks={tasks} onTaskClick={onTaskClick} OnDeleteTaskClick={OnDeleteTaskClick}/>
+    <div className='bg-white w-10/12 min-h-[75vh] md:h-[75vh] rounded-[30px] mx-auto my-10 flex flex-wrap md:flex-nowrap justify-between gap-3 p-6'>
+      <section className='flex flex-col w-full md:w-9/12 gap-6'>
+        <AddTask OnAddTaskSubmit={OnAddTaskSubmit} />
+        <Tasks tasks={tasks} onTaskClick={onTaskClick} OnDeleteTaskClick={OnDeleteTaskClick} />
+      </section>
+      <section className='w-full md:w-3/5'>
+       <Statistic tasks={tasks} onTaskClick={onTaskClick} OnDeleteTaskClick={OnDeleteTaskClick}/>
       </section>
       <ToastContainer />
-    </div>
-    </>
+</div>
+
+  </>
   )
 }
 

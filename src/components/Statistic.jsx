@@ -1,7 +1,73 @@
-export default function Statistic(){
-  return(
-    <div className="bg-white w-[40vh] h-[40vh] rounded-md shadow">
-        <h1>Ola estou aqui</h1>
+import { Trash2, RefreshCcw, ChevronDown, ChevronUp } from "lucide-react";
+import PropTypes from "prop-types";
+import { useState } from "react";
+
+export default function Statistic({ tasks, onTaskClick, onDeleteTaskClick }) {
+  const [seeCompleted, setSeeCompleted] = useState(false);
+
+  // Filtra tarefas concluídas
+  const completedTasks = tasks.filter(task => task.isCompleted);
+
+  return (
+    <div className="bg-containerColor rounded-md shadow-md overflow-auto flex-col">
+      {/* Verifica se há tarefas concluídas */}
+      {completedTasks.length > 0 && (
+        <button
+          className="w-full bg-slate-500 rounded-md text-white font-medium flex justify-between p-2"
+          onClick={() => setSeeCompleted(!seeCompleted)}
+        >
+          Ver tarefas concluídas
+          {!seeCompleted ? <ChevronDown /> : <ChevronUp />}
+        </button>
+      )}
+
+      {/* Exibe tarefas concluídas se `seeCompleted` for verdadeiro */}
+      {seeCompleted && (
+        <ul className="space-y-4 p-3 rounded-b-lg shadow font-medium">
+          {completedTasks.map(task => (
+            <li key={task.id} className="flex gap-2">
+              {/* Título da Tarefa */}
+              <button
+                className={`w-full text-left rounded-md border-b-4 p-3 ${
+                  task.isCompleted ? "line-through" : ""
+                }`}
+              >
+                {task.title}
+              </button>
+
+              {/* Botão para "desconcluir" */}
+              <button
+                className="bg-slate-100 rounded-md p-2"
+                onClick={() => onTaskClick(task.id, task.isCompleted)}
+                title="Marcar como pendente"
+              >
+                <RefreshCcw className="text-black" />
+              </button>
+
+              {/* Botão para excluir tarefa */}
+              <button
+                className="text-red-700 rounded-md bg-slate-100 p-2"
+                onClick={() => onDeleteTaskClick(task.id)}
+                title="Excluir tarefa"
+              >
+                <Trash2 />
+              </button>
+            </li>
+          ))}
+        </ul>
+      )}
     </div>
-  )
+  );
 }
+
+Statistic.propTypes = {
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+      isCompleted: PropTypes.bool.isRequired,
+    })
+  ).isRequired,
+  onTaskClick: PropTypes.func.isRequired,
+  onDeleteTaskClick: PropTypes.func.isRequired,
+};

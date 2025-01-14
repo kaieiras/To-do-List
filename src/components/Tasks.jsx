@@ -1,4 +1,4 @@
-import { Trash2, RefreshCcw, Check, ChevronRight } from "lucide-react";
+import { Trash2, Check, ChevronRight } from "lucide-react";
 import PropTypes from "prop-types";
 import { useNavigate } from "react-router-dom";
 
@@ -11,12 +11,14 @@ export default function Tasks({tasks, onTaskClick, OnDeleteTaskClick}) {
   
   
   return (
-    <div className="bg-containerColor rounded-md shadow-md">
+    <div className="bg-containerColor rounded-md shadow-md overflow-auto">
       <ul className='space-y-4 p-3 rounded-md shadow font-medium'>
-        {tasks.map((task) => (
+        {tasks
+        .filter(task => !task.isCompleted)
+        .map((task) => (
           <li key={task.id} className="flex gap-2">
             <button 
-              className={`bg-inputColor w-full text-left rounded-md shadow-lg p-3 ${task.isCompleted && 'line-through'}`}>
+              className={`w-full text-left rounded-md border-b-4 p-3 ${task.isCompleted && 'line-through'}`}>
                 {task.title}
             </button>
 
@@ -27,9 +29,9 @@ export default function Tasks({tasks, onTaskClick, OnDeleteTaskClick}) {
             </button>
             <button 
               className="text-green-500 bg-slate-100 rounded-md p-2"
-              onClick={() => onTaskClick(task.id)} 
+              onClick={() => onTaskClick(task.id, task.isCompleted)} 
             >
-              {!task.isCompleted ? <Check /> : <RefreshCcw className="text-black"/>}
+             <Check /> 
             </button>
             
             <button className="text-red-700 rounded-md bg-slate-100	p-2">
