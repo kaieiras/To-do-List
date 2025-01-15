@@ -45,7 +45,7 @@ export default function AddTask({ OnAddTaskSubmit }) {
             OnAddTaskSubmit(title, description)
             setTitle("");
             setDescription("");
-         }} className="bg-[#17A6A6] text-white shadow-md rounded-md px-4 py-1"> Enviar </button>
+         }} className="bg-[#17A6A6] hover:bg-[#149292] text-white shadow-md rounded-md px-4 py-1"> Enviar </button>
        </div>
         </>
        )

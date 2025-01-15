@@ -35,7 +35,7 @@ function onTaskClick(taskId, taskCompleted){
 function OnDeleteTaskClick(taskId){
    const newTasks = tasks.filter(task => task.id !== taskId)
    setTasks(newTasks);
-   toast.error("Tarefa deletada com sucesso")
+   toast.error("Tarefa deletada com sucesso");
 }
 
 function OnAddTaskSubmit(title, description){
