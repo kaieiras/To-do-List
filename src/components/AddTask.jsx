@@ -17,8 +17,6 @@ export default function AddTask({ OnAddTaskSubmit }) {
             setDescription(""); // Limpa a descrição após o envio
         }
     };
-
-
     return(
         <>
         <div className="bg-containerColor rounded-md shadow flex flex-col gap-3 p-5">
@@ -37,7 +35,7 @@ export default function AddTask({ OnAddTaskSubmit }) {
             onChange={(event) => setDescription(event.target.value)}
             onKeyDown={handleKeyDown}
             />
-         <button type="submit" onClick={() =>{
+         <button type="submit" title="Criar tarefa" onClick={() =>{
             if(!title.trim()) {
                 toast.error("O campo tarefa não pode estar em branco.")
                 return;

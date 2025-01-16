@@ -1,4 +1,4 @@
-import { Trash2, RefreshCcw, ChevronDown, ChevronUp, ListChecks } from "lucide-react";
+import { Trash2, RefreshCcw, ChevronDown, ChevronUp, ListChecks, NotepadText  } from "lucide-react";
 import PropTypes from "prop-types";
 import { useState } from "react";
 
@@ -27,16 +27,17 @@ export default function Statistic({ tasks, onTaskClick, OnDeleteTaskClick }) {
             <li key={task.id} className="flex gap-2">
               {/* Título da Tarefa */}
               <button
-                className={`w-full text-left hover:bg-[#eeeeee] rounded-md border-b-4 p-3 ${
-                  task.isCompleted ? "line-through" : ""
-                }`}
-              >
-                {task.title}
-              </button>
+                  className={`w-full flex gap-3 bg-white hover:bg-[#eeeeee] italic text-left font-sans rounded-md border-b-4 p-3 ${
+                    task.isCompleted && "line-through"
+                  }`}
+                >
+                  <NotepadText className="text-[#001C40]"/>
+                  {task.title}
+                </button>
 
               {/* Botão para "desconcluir" */}
               <button
-                className="bg-slate-100 hover:bg-slate-200 rounded-md p-2"
+                className="bg-white hover:bg-slate-200 rounded-md p-2"
                 onClick={() => onTaskClick(task.id, task.isCompleted)}
                 title="Refazer tarefa"
               >
@@ -45,7 +46,7 @@ export default function Statistic({ tasks, onTaskClick, OnDeleteTaskClick }) {
 
               {/* Botão para excluir tarefa */}
               <button
-                className="text-red-700 rounded-md bg-slate-100 hover:bg-slate-200 p-2"
+                className="text-red-700 rounded-md bg-white hover:bg-slate-200 p-2"
                 onClick={() => OnDeleteTaskClick(task.id)}
                 title="Excluir tarefa"
               >

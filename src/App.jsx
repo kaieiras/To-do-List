@@ -2,7 +2,7 @@ import Statistic from './components/Statistic'
 import AddTask from './components/AddTask';
 import Tasks from './components/Tasks';
 import Nav from './components/nav';
-
+import Footer from './components/footer';
 import { toast, ToastContainer } from 'react-toastify';
 import { useState, useEffect } from 'react';
 
@@ -49,11 +49,10 @@ function OnAddTaskSubmit(title, description){
   setTasks([...tasks, newTask]);
   toast.info("Tarefa criada com sucesso.")
 }
-  
   return (
     <>
     <Nav />
-    <div className='bg-white w-10/12 min-h-[75vh] md:h-[75vh] rounded-[30px] mx-auto my-10 flex flex-wrap md:flex-nowrap justify-between gap-3 p-6'>
+    <div className='bg-[white] w-9/12 min-h-[75vh] md:h-[75vh] rounded-[30px] mx-auto my-10 flex flex-wrap md:flex-nowrap justify-between gap-3 p-6'>
       <section className='flex flex-col w-full md:w-9/12 gap-6'>
         <AddTask OnAddTaskSubmit={OnAddTaskSubmit} />
         <Tasks tasks={tasks} onTaskClick={onTaskClick} OnDeleteTaskClick={OnDeleteTaskClick} />
@@ -61,9 +60,10 @@ function OnAddTaskSubmit(title, description){
       <section className='w-full md:w-3/5'>
        <Statistic tasks={tasks} onTaskClick={onTaskClick} OnDeleteTaskClick={OnDeleteTaskClick}/>
       </section>
+      
       <ToastContainer />
 </div>
-
+<Footer/>
   </>
   )
 }

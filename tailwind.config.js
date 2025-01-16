@@ -6,7 +6,7 @@ export default {
       colors: {
         'primaryColor': '#233745',
         'primaryDarkColor' :'#2e2e2e',
-        'containerColor': '#FFFFFF',
+        'containerColor': '#F2F2F2',
         'inutColor' : '#202020',
         'navColor': '#401C8C'
       }
