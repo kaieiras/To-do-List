@@ -11,7 +11,6 @@ export default function Details({ task }) {
       year: "2-digit",
     });
   }
-
   return (
     <div className="p-3 bg-gray-100 rounded-md flex-col">
       <p className="flex gap-2 font-mono text-sm"><TypeOutline size={18}/> Título: {task.title}</p>
@@ -24,7 +23,6 @@ export default function Details({ task }) {
     </div>
   );
 }
-
 Details.propTypes = {
   task: PropTypes.shape({
     id: PropTypes.number.isRequired,

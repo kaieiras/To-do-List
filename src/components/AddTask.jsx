@@ -48,7 +48,6 @@ export default function AddTask({ OnAddTaskSubmit }) {
         </>
        )
 }
-
 AddTask.propTypes = {
     OnAddTaskSubmit: PropTypes.func.isRequired,
 }

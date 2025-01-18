@@ -1,7 +1,7 @@
 import { Trash2, Check, ChevronRight, NotepadText } from "lucide-react";
 import PropTypes from "prop-types";
 import { useState } from "react";
-import Details from "./details";
+import Details from "./Details";
 
 export default function Tasks({ tasks, onTaskClick, OnDeleteTaskClick }) {
   const [detailsVisible, setDetailsVisible] = useState(null); // Controla os detalhes por ID da tarefa
@@ -9,7 +9,6 @@ export default function Tasks({ tasks, onTaskClick, OnDeleteTaskClick }) {
   function toggleDetails(taskId) {
     setDetailsVisible((prev) => (prev === taskId ? null : taskId));
   }
-
   return (
     <div className="bg-containerColor rounded-md shadow-md overflow-auto">
       <ul className="space-y-4 p-3 rounded-md shadow font-medium">

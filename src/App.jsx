@@ -1,8 +1,8 @@
 import Statistic from './components/Statistic'
 import AddTask from './components/AddTask';
 import Tasks from './components/Tasks';
-import Nav from './components/nav';
-import Footer from './components/footer';
+import Nav from './components/Nav';
+
 import { toast, ToastContainer } from 'react-toastify';
 import { useState, useEffect } from 'react';
 
@@ -63,7 +63,6 @@ function OnAddTaskSubmit(title, description){
       
       <ToastContainer />
 </div>
-<Footer/>
   </>
   )
 }
