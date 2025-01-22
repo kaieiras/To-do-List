@@ -40,19 +40,19 @@ export class Login{
     };
 
     async userExists() {
-        this.cleanUp();
+        this.cleanUp(this.body);
         this.user= await LoginModel.findOne({email: this.body.email,});
         if(this.user) this.errors.push('Este e-mail já esta sendo utilizado.');
     }
 
-    valida(){
-        this.cleanUp();
+    valida(body){
+        this.cleanUp(body);
         if(!validator.isEmail(this.body.email)) this.errors.push('e-mail inválido')
         if(this.body.password.length < 3 || this.body.password.length >= 50){
           this.errors.push('A senha precisa ter entre 3 e 50 caracteres')
         };
     }
-    cleanUp(){
+    cleanUp(body){
         for(const key in this.body){
             if(typeof this.body[key] !== 'string'){
                 this.body[key] = '';

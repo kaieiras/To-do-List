@@ -1,10 +1,11 @@
 import { Router } from "express";
 const routes = Router();
 
-import * as loginController from './controllers/loginController.js'
-import * as tarefasController from './controllers/tarefasController.js'
+import * as loginController from './backEnd/controllers/loginController.js'
+import * as tarefasController from './backEnd/controllers/tarefasController.js'
 
-//routes.get('/tarefas', tarefasController.index )
+routes.get('/', tarefasController.getTasks)
+routes.post('/', tarefasController.criaTarefas)
 
 routes.post('/login/register', loginController.register);
 routes.post('/login/login', loginController.login);
